@@ -6,9 +6,9 @@ import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private AudioManager audioManager;
     private SeekBar volumeSeekBar;
+
+    public static final String TAG = MainActivity.class.getName();
 
     // create an instance of class SoundBoard
     SoundBoard soundBoard = new SoundBoard();
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                        Log.i("SeekBar Value", Integer.toString(progress));
                     }
 
                     // at the start of being clicked
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             // call exception if try doesn't work
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(TAG, "SeekBar should adjust volume when dragged.", e);
             }
 
         }
@@ -116,12 +119,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        soundBoard.volumeControl();
+
 
         // assign a media file to mediaPlayer
         mediaPlayer = MediaPlayer.create(this, R.raw.crickets);
 
         // pass argument to instance of AudioManager
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        // call class' method
+        soundBoard.volumeControl();
     }
 }
