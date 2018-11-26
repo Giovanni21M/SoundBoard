@@ -1,15 +1,22 @@
 package com.giovannimartinus.sounddemo;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    // create a MediaPlayer variable
-    MediaPlayer mediaPlayer;
+    // create an object
+    private MediaPlayer mediaPlayer;
+    private AudioManager audioManager;
+    private SeekBar volumeSeekBar;
 
     // create an instance of class SoundBoard
     SoundBoard soundBoard = new SoundBoard();
@@ -34,6 +41,59 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.seekTo(0);
         }
 
+
+        // allow volume control with SeekBar widget
+        public void volumeControl() {
+
+            try {
+
+                // create objects of STREAM_MUSIC
+                int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+
+                // assign view to object
+                volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
+
+
+                // set max volume
+                volumeSeekBar.setMax(maxVolume);
+
+
+                // set current (progressing) volume
+                volumeSeekBar.setProgress(currentVolume);
+
+                // listen when/while the SeekBar is clicked
+                volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+                    // while currently clicked
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                    }
+
+                    // at the start of being clicked
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    // at the end of being clicked
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                });
+
+            // call exception if try doesn't work
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
 
 
@@ -55,8 +115,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        soundBoard.volumeControl();
 
         // assign a media file to mediaPlayer
         mediaPlayer = MediaPlayer.create(this, R.raw.crickets);
+
+        // pass argument to instance of AudioManager
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
     }
 }
