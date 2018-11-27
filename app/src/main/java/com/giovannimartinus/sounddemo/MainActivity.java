@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
 
 
-                // set max volume
+                // set max volume to the maximum volume of the system
                 volumeSeekBar.setMax(maxVolume);
 
 
