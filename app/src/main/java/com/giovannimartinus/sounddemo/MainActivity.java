@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
         public void stopButton() {
             mediaPlayer.pause();
             mediaPlayer.seekTo(0);
+        }
+
+        // toggle on/off the audio button
+        public void audioButton(View view) {
+            SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
+
+            if (volumeSeekBar.getVisibility() == View.INVISIBLE) {
+                volumeSeekBar.setVisibility(View.VISIBLE);
+            } else if (volumeSeekBar.getVisibility() == View.VISIBLE) {
+                volumeSeekBar.setVisibility(View.INVISIBLE);
+            }
+
         }
 
 
@@ -111,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopAudio(View view) {
         soundBoard.stopButton();
+    }
+
+    public void toggleAudio(View view) {
+        soundBoard.audioButton(view);
     }
 
 
