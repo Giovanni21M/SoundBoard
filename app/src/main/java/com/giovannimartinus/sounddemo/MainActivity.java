@@ -59,14 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
         // change the audio button's icon based on volume level
         public void audioButtonView(int x) {
+
             ImageButton volumeButton = (ImageButton) findViewById(R.id.imageButton);
 
-            // if the volume is at max
-            if (x == audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+            // create integers for if statement
+            int volume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            int third = volume / 3;
+
+
+            // if the x is between volume - 1/3 or itself
+            if (x == volume || x >= (volume - third)) {
                 volumeButton.setImageResource(R.drawable.highvolume);
-            // else if the volume is at 0
+            // else if the x is at 0
             } else if (x == 0) {
                 volumeButton.setImageResource(R.drawable.novolume);
+            // else if x is between 1 and 1/3 of volume
+            } else if (x >= 1 && x < third) {
+                        volumeButton.setImageResource(R.drawable.lowvolume);
+            // else if x is between 1/3 of volume and volume - 1/3
+            } else if (x < (volume - third) && x >= third) {
+                volumeButton.setImageResource(R.drawable.mediumvolume);
             }
         }
 
