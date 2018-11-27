@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         public void audioButton(View view) {
             SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
 
+            // if the visibility is visible than set as invisible - vice versa
             if (volumeSeekBar.getVisibility() == View.INVISIBLE) {
                 volumeSeekBar.setVisibility(View.VISIBLE);
             } else if (volumeSeekBar.getVisibility() == View.VISIBLE) {
@@ -56,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        // change the audio button's icon based on volume level
+        public void audioButtonView(int x) {
+            ImageButton volumeButton = (ImageButton) findViewById(R.id.imageButton);
+
+            // if the volume is at max
+            if (x == audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)) {
+                volumeButton.setImageResource(R.drawable.highvolume);
+            // else if the volume is at 0
+            } else if (x == 0) {
+                volumeButton.setImageResource(R.drawable.novolume);
+            }
+        }
 
         // allow volume control with SeekBar widget
         public void volumeControl() {
@@ -84,8 +97,14 @@ public class MainActivity extends AppCompatActivity {
                     // while currently clicked
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        // set the current volume on SeekBar
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+
+                        // display to log the SeekBar value
                         Log.i("SeekBar Value", Integer.toString(progress));
+
+                        // call class' method and pass progress
+                        soundBoard.audioButtonView(progress);
                     }
 
                     // at the start of being clicked
