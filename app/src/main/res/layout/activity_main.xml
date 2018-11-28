@@ -11,45 +11,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.giovannimartinus.sounddemo.MainActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout">
-
-        <Button
-            android:text="Play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/playButton"
-            android:layout_weight="1"
-            android:onClick="playAudio" />
-
-        <Button
-            android:text="Pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pauseButton"
-            android:layout_weight="1"
-            android:onClick="pauseAudio" />
-
-        <Button
-            android:text="Stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/stopButton"
-            android:layout_weight="1"
-            android:onClick="stopAudio" />
-
-    </LinearLayout>
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
-        android:id="@+id/imageButton"
+        android:id="@+id/volumeDisplayButton"
         android:layout_below="@+id/linearLayout"
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout"
@@ -64,10 +30,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_alignTop="@+id/imageButton"
+        android:layout_alignTop="@+id/volumeDisplayButton"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/imageButton"
+        android:layout_toRightOf="@+id/volumeDisplayButton"
         android:layout_alignRight="@+id/linearLayout"
         android:layout_alignEnd="@+id/linearLayout"
         android:visibility="invisible" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/playbutton"
+            android:id="@+id/playButton"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxHeight="48dp"
+            android:maxWidth="48dp"
+            android:onClick="playAudio" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/pausebutton"
+            android:id="@+id/pauseButton"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxHeight="48dp"
+            android:maxWidth="48dp"
+            android:onClick="pauseAudio" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/stopbutton"
+            android:id="@+id/stopButton"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxHeight="48dp"
+            android:maxWidth="48dp"
+            android:onClick="stopAudio" />
+
+    </LinearLayout>
 </RelativeLayout>
