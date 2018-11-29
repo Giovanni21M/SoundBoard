@@ -54,10 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             muted = false;
 
-            if (muted == false) {
-                mediaPlayer.setVolume(0,0);
-                volumeButton.setImageResource(R.drawable.novolume);
-            } else if (muted == true) {
+            if (muted == true) {
                 mediaPlayer.setVolume(1,1);
                 if (x == 0) {
                     muteIcon.setImageResource(R.drawable.highvolume);
@@ -72,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
                     muteIcon.setImageResource(R.drawable.mediumvolume);
                     volumeButton.setImageResource(R.drawable.mediumvolume);
                 }
+            } else if (muted == false) {
+                mediaPlayer.setVolume(0,0);
+                volumeButton.setImageResource(R.drawable.novolume);
             }
         }
 
