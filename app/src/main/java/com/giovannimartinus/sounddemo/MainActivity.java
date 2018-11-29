@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else if (muted == false) {
                 mediaPlayer.setVolume(0,0);
+                muteIcon.setImageResource(R.drawable.novolume);
                 volumeButton.setImageResource(R.drawable.novolume);
             }
         }
