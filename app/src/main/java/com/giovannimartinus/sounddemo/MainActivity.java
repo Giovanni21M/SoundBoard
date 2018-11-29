@@ -203,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void muteAudio(View view) {
-        ImageButton muteButton = (ImageButton) findViewById(R.id.muteButton);
-        muteTag = (Integer) muteButton.getTag();
+        ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
+        muteTag = (Integer) muteIcon.getTag();
         soundBoard.muteButton(muteTag);
     }
 
