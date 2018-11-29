@@ -11,39 +11,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.giovannimartinus.sounddemo.MainActivity">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:id="@+id/volumeDisplayButton"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignLeft="@+id/linearLayout"
-        android:layout_alignStart="@+id/linearLayout"
-        android:src="@drawable/highvolume"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:maxHeight="48dp"
-        android:maxWidth="48dp"
-        android:onClick="toggleAudio" />
-
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        android:layout_alignTop="@+id/volumeDisplayButton"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/volumeDisplayButton"
-        android:layout_alignRight="@+id/linearLayout"
-        android:layout_alignEnd="@+id/linearLayout"
-        android:visibility="invisible" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray">
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -55,7 +30,8 @@
             android:adjustViewBounds="true"
             android:maxHeight="48dp"
             android:maxWidth="48dp"
-            android:onClick="playAudio" />
+            android:onClick="playAudio"
+            android:backgroundTint="@android:color/darker_gray" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -67,7 +43,8 @@
             android:adjustViewBounds="true"
             android:maxHeight="48dp"
             android:maxWidth="48dp"
-            android:onClick="pauseAudio" />
+            android:onClick="pauseAudio"
+            android:backgroundTint="@android:color/darker_gray" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -79,7 +56,55 @@
             android:adjustViewBounds="true"
             android:maxHeight="48dp"
             android:maxWidth="48dp"
-            android:onClick="stopAudio" />
+            android:onClick="stopAudio"
+            android:backgroundTint="@android:color/darker_gray" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/volumeDisplayButton"
+            android:src="@drawable/highvolume"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxHeight="48dp"
+            android:maxWidth="48dp"
+            android:onClick="toggleAudio"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/darker_gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:id="@+id/volumeLayout"
+        android:visibility="visible">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/highvolume"
+            android:id="@+id/muteButton"
+            android:scaleType="fitCenter"
+            android:maxWidth="48dp"
+            android:maxHeight="48dp"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            android:onClick="muteAudio"
+            android:tag="0" />
+
+        <SeekBar
+            android:layout_width="101dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:layout_marginTop="11dp"
+            android:layout_weight="300" />
     </LinearLayout>
 </RelativeLayout>

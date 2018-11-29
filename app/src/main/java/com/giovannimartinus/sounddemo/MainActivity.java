@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSeekBar;
 
     public static final String TAG = MainActivity.class.getName();
+
+    private int muteTag;
+    private boolean muted;
 
     // create an instance of class SoundBoard
     SoundBoard soundBoard = new SoundBoard();
@@ -44,15 +48,42 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.seekTo(0);
         }
 
+        public void muteButton(int x) {
+            ImageButton volumeButton = (ImageButton) findViewById(R.id.volumeDisplayButton);
+            ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
+
+            muted = false;
+
+            if (muted == false) {
+                mediaPlayer.setVolume(0,0);
+                volumeButton.setImageResource(R.drawable.novolume);
+            } else if (muted == true) {
+                mediaPlayer.setVolume(1,1);
+                if (x == 0) {
+                    muteIcon.setImageResource(R.drawable.highvolume);
+                    volumeButton.setImageResource(R.drawable.highvolume);
+                } else if (x == 1) {
+                    muteIcon.setImageResource(R.drawable.novolume);
+                    volumeButton.setImageResource(R.drawable.novolume);
+                } else if (x == 2) {
+                    muteIcon.setImageResource(R.drawable.lowvolume);
+                    volumeButton.setImageResource(R.drawable.lowvolume);
+                } else if (x == 3) {
+                    muteIcon.setImageResource(R.drawable.mediumvolume);
+                    volumeButton.setImageResource(R.drawable.mediumvolume);
+                }
+            }
+        }
+
         // toggle on/off the audio button
         public void audioButton(View view) {
-            SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
+            LinearLayout volumeLayout = (LinearLayout) findViewById(R.id.volumeLayout);
 
             // if the visibility is visible than set as invisible - vice versa
-            if (volumeSeekBar.getVisibility() == View.INVISIBLE) {
-                volumeSeekBar.setVisibility(View.VISIBLE);
-            } else if (volumeSeekBar.getVisibility() == View.VISIBLE) {
-                volumeSeekBar.setVisibility(View.INVISIBLE);
+            if (volumeLayout.getVisibility() == View.INVISIBLE) {
+                volumeLayout.setVisibility(View.VISIBLE);
+            } else if (volumeLayout.getVisibility() == View.VISIBLE) {
+                volumeLayout.setVisibility(View.INVISIBLE);
             }
 
         }
@@ -61,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         public void audioButtonView(int x) {
 
             ImageButton volumeButton = (ImageButton) findViewById(R.id.volumeDisplayButton);
+            ImageButton muteButton = (ImageButton) findViewById(R.id.muteButton);
+
 
             // create integers for if statement
             int volume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -70,15 +103,23 @@ public class MainActivity extends AppCompatActivity {
             // if the x is between volume - 1/3 or itself
             if (x == volume || x >= (volume - third)) {
                 volumeButton.setImageResource(R.drawable.highvolume);
+                muteButton.setImageResource(R.drawable.highvolume);
+                muteButton.setTag(0);
             // else if the x is at 0
             } else if (x == 0) {
                 volumeButton.setImageResource(R.drawable.novolume);
+                muteButton.setImageResource(R.drawable.novolume);
+                muteButton.setTag(1);
             // else if x is between 1 and 1/3 of volume
             } else if (x >= 1 && x < third) {
-                        volumeButton.setImageResource(R.drawable.lowvolume);
+                volumeButton.setImageResource(R.drawable.lowvolume);
+                muteButton.setImageResource(R.drawable.lowvolume);
+                muteButton.setTag(2);
             // else if x is between 1/3 of volume and volume - 1/3
             } else if (x < (volume - third) && x >= third) {
                 volumeButton.setImageResource(R.drawable.mediumvolume);
+                muteButton.setImageResource(R.drawable.mediumvolume);
+                muteButton.setTag(3);
             }
         }
 
@@ -158,6 +199,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void toggleAudio(View view) {
         soundBoard.audioButton(view);
+    }
+
+    public void muteAudio(View view) {
+        ImageButton muteButton = (ImageButton) findViewById(R.id.muteButton);
+        muteTag = (Integer) muteButton.getTag();
+        soundBoard.muteButton(muteTag);
     }
 
 
