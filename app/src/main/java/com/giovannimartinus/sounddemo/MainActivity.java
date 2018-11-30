@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getName();
 
-    private int muteTag;
     private boolean muted;
 
     // create an instance of class SoundBoard
@@ -48,32 +47,46 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.seekTo(0);
         }
 
+        // mute/unmute the media file and change muteButton's src
         public void muteButton(int x) {
-            ImageButton volumeButton = (ImageButton) findViewById(R.id.volumeDisplayButton);
-            ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
 
-            muted = false;
+            try {
+                ImageButton volumeButton = (ImageButton) findViewById(R.id.volumeDisplayButton);
+                ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
 
-            if (muted == true) {
-                mediaPlayer.setVolume(1,1);
-                if (x == 0) {
-                    muteIcon.setImageResource(R.drawable.highvolume);
-                    volumeButton.setImageResource(R.drawable.highvolume);
-                } else if (x == 1) {
+                muted = false;
+
+                // if muted set volume back to it's position
+                if (muted == true) {
+                    mediaPlayer.setVolume(1,1);
+                    muted = false;
+
+                    // set the ImageResource back to their original src
+                    if (x == 0) {
+                        muteIcon.setImageResource(R.drawable.highvolume);
+                        volumeButton.setImageResource(R.drawable.highvolume);
+                    } else if (x == 1) {
+                        muteIcon.setImageResource(R.drawable.novolume);
+                        volumeButton.setImageResource(R.drawable.novolume);
+                    } else if (x == 2) {
+                        muteIcon.setImageResource(R.drawable.lowvolume);
+                        volumeButton.setImageResource(R.drawable.lowvolume);
+                    } else if (x == 3) {
+                        muteIcon.setImageResource(R.drawable.mediumvolume);
+                        volumeButton.setImageResource(R.drawable.mediumvolume);
+                    }
+                // else if it's not muted then mute the volume and change src
+                } else if (muted == false) {
+                    mediaPlayer.setVolume(0,0);
+                    muted = true;
+
                     muteIcon.setImageResource(R.drawable.novolume);
                     volumeButton.setImageResource(R.drawable.novolume);
-                } else if (x == 2) {
-                    muteIcon.setImageResource(R.drawable.lowvolume);
-                    volumeButton.setImageResource(R.drawable.lowvolume);
-                } else if (x == 3) {
-                    muteIcon.setImageResource(R.drawable.mediumvolume);
-                    volumeButton.setImageResource(R.drawable.mediumvolume);
                 }
-            } else if (muted == false) {
-                mediaPlayer.setVolume(0,0);
-                muteIcon.setImageResource(R.drawable.novolume);
-                volumeButton.setImageResource(R.drawable.novolume);
+            } catch (Exception e){
+                Log.e(TAG, "Volume should be muted or unmuted.", e);
             }
+
         }
 
         // toggle on/off the audio button
@@ -204,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void muteAudio(View view) {
         ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
-        muteTag = (Integer) muteIcon.getTag();
+        int muteTag = Integer.parseInt(muteIcon.getTag().toString());
         soundBoard.muteButton(muteTag);
     }
 
