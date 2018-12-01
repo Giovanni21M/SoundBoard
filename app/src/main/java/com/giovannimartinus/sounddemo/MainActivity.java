@@ -22,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getName();
 
-    private boolean muted = false;
-
     // create an instance of class SoundBoard
     SoundBoard soundBoard = new SoundBoard();
 
 
     // class containing all sound media controls
     class SoundBoard {
+
+        private boolean muted = false;
 
         // play the media file
         public void playButton() {
