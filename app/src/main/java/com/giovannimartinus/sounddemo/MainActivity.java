@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getName();
 
-    private boolean muted;
+    private boolean muted = false;
 
     // create an instance of class SoundBoard
     SoundBoard soundBoard = new SoundBoard();
@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 ImageButton volumeButton = (ImageButton) findViewById(R.id.volumeDisplayButton);
                 ImageButton muteIcon = (ImageButton) findViewById(R.id.muteButton);
 
-                muted = false;
 
                 // if muted set volume back to it's position
                 if (muted == true) {
