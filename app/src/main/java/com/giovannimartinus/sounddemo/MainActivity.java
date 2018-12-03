@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getName();
 
-    // create an instance of class SoundBoard
+    // create an instance of class
     SoundBoard soundBoard = new SoundBoard();
+    TimeLine timeLine = new TimeLine();
 
 
     // class containing all sound media controls
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     muteButton.setImageResource(R.drawable.mediumvolume);
                     muteButton.setTag(3);
                 }
-            } // what happens when having no alternative clause
+            } // alternative clause not required
 
 
         }
@@ -196,6 +197,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+    }
+
+    // class containing all time controls for media file
+    class TimeLine {
 
     }
 
