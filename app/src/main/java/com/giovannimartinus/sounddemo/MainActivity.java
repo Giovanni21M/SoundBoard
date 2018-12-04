@@ -18,13 +18,11 @@ public class MainActivity extends AppCompatActivity {
     // create an object
     private MediaPlayer mediaPlayer;
     private AudioManager audioManager;
-    private SeekBar volumeSeekBar;
 
     public static final String TAG = MainActivity.class.getName();
 
     // create an instance of class
     SoundBoard soundBoard = new SoundBoard();
-    TimeLine timeLine = new TimeLine();
 
 
     // class containing all sound media controls
@@ -149,14 +147,11 @@ public class MainActivity extends AppCompatActivity {
                 int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                 int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-
                 // assign view to object
-                volumeSeekBar = (SeekBar) findViewById(R.id.seekBar);
-
+                SeekBar volumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
 
                 // set max volume to the maximum volume of the system
                 volumeSeekBar.setMax(maxVolume);
-
 
                 // set current (progressing) volume
                 volumeSeekBar.setProgress(currentVolume);
@@ -198,10 +193,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
+        // allow positioning on timeline
+        public void timeLineControl() {
 
-    // class containing all time controls for media file
-    class TimeLine {
+            try {
+
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "SeekBar should position timeline.", e);
+            }
+        }
 
     }
 
@@ -245,5 +247,6 @@ public class MainActivity extends AppCompatActivity {
 
         // call class' method
         soundBoard.volumeControl();
+        soundBoard.timeLineControl();
     }
 }
