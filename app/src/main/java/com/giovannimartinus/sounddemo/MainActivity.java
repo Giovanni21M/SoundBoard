@@ -2,7 +2,9 @@ package com.giovannimartinus.sounddemo;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -194,10 +199,52 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // allow positioning on timeline
-        public void timeLineControl() {
+        public void scrubberControl() {
 
             try {
 
+                // assign view to object
+                final SeekBar scrubberSeekBar = (SeekBar) findViewById(R.id.scrubberSeekBar);
+
+                // set the max value of the SeekBar to the length of the media file
+                scrubberSeekBar.setMax(mediaPlayer.getDuration());
+
+                // update SeekBar with location of media file
+                new Timer().scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        // run code in here immediately and every second
+                        scrubberSeekBar.setProgress(mediaPlayer.getCurrentPosition());
+                    }
+                // number of seconds before run for first time,
+                // number of milliseconds between successive calls
+                }, 0, 100);
+
+                scrubberSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+                    // while currently clicked
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        // move to current time
+                        mediaPlayer.seekTo(progress);
+
+                        // display to log the SeekBar value
+                        Log.i("Scrubber Value", Integer.toString(progress));
+                    }
+
+                    // at the start of being clicked
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    // at the end of being clicked
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
 
 
             } catch (Exception e) {
@@ -247,6 +294,6 @@ public class MainActivity extends AppCompatActivity {
 
         // call class' method
         soundBoard.volumeControl();
-        soundBoard.timeLineControl();
+        soundBoard.scrubberControl();
     }
 }

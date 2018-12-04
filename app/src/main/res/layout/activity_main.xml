@@ -103,10 +103,46 @@
         <SeekBar
             android:layout_width="101dp"
             android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
+            android:id="@+id/volumeSeekBar"
             android:layout_marginTop="11dp"
             android:layout_weight="300"
             android:progressTint="@android:color/holo_red_light"
             android:thumbTint="@android:color/holo_red_dark" />
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:id="@+id/linearLayout2">
+
+        <SeekBar
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrubberSeekBar"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_alignStart="@+id/linearLayout"
+            android:layout_alignRight="@+id/linearLayout"
+            android:layout_alignEnd="@+id/linearLayout"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:background="@android:drawable/editbox_dropdown_dark_frame"
+        android:text="23"
+        android:textAlignment="gravity"
+        android:gravity="center_vertical|center_horizontal"
+        android:alpha="0.7"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout2" />
 </RelativeLayout>
