@@ -13,9 +13,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -143,6 +145,22 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        // display scrubberSeekBar progress when clicked
+        public void scrubberTextView(int x) {
+
+            TextView scrubberTextView = (TextView) findViewById(R.id.scrubberTextView);
+
+            // w/ TimeUnit API convert milliseconds into hour:minute:second time format
+            String hourMinSec = String.format("%02d:%02d:0%2d", TimeUnit.MILLISECONDS.toHours(x),
+                    TimeUnit.MILLISECONDS.toMinutes(x) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(x)),
+                    TimeUnit.MILLISECONDS.toSeconds(x) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(x))
+            );
+
+            // display selected time of scrubber
+            scrubberTextView.setText(hourMinSec);
+
+        }
+
         // allow volume control with SeekBar widget
         public void volumeControl() {
 
@@ -228,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
 
                         // move to current time
                         mediaPlayer.seekTo(progress);
+
+                        // pass progress to scrubberTextView
+                        soundBoard.scrubberTextView(progress);
 
                         // display to log the SeekBar value
                         Log.i("Scrubber Value", Integer.toString(progress));
