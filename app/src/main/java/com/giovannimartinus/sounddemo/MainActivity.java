@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
             TextView scrubberTextView = (TextView) findViewById(R.id.scrubberTextView);
 
+            SeekBar scrubberSeekBar = (SeekBar) findViewById(R.id.scrubberSeekBar);
+
             // w/ TimeUnit API convert milliseconds into hour:minute:second time format
             String hourMinSec = String.format("%02d:%02d:0%2d", TimeUnit.MILLISECONDS.toHours(x),
                     TimeUnit.MILLISECONDS.toMinutes(x) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(x)),
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
             // display selected time of scrubber
             scrubberTextView.setText(hourMinSec);
+
 
         }
 
@@ -252,17 +255,24 @@ public class MainActivity extends AppCompatActivity {
 
                         // display to log the SeekBar value
                         Log.i("Scrubber Value", Integer.toString(progress));
+
                     }
 
                     // at the start of being clicked
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
+                        // pause media file when clicked
+                        mediaPlayer.pause();
+
                     }
 
                     // at the end of being clicked
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        // play track when unclicked
+                        mediaPlayer.start();
 
                     }
                 });
