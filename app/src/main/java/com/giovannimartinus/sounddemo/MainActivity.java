@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -152,10 +153,16 @@ public class MainActivity extends AppCompatActivity {
             SeekBar scrubberSeekBar = (SeekBar) findViewById(R.id.scrubberSeekBar);
 
             // w/ TimeUnit API convert milliseconds into hour:minute:second time format
-            String hourMinSec = String.format("%02d:%02d:0%2d", TimeUnit.MILLISECONDS.toHours(x),
-                    TimeUnit.MILLISECONDS.toMinutes(x) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(x)),
-                    TimeUnit.MILLISECONDS.toSeconds(x) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(x))
-            );
+            String hourMinSec;
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(x) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(x));
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(x) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(x));
+
+            if (TimeUnit.MILLISECONDS.toHours(x) == 0) {
+                hourMinSec = String.format("%02d:%02d", minutes, seconds);
+            } else {
+                hourMinSec = String.format("%02d:%02d:0%2d", TimeUnit.MILLISECONDS.toHours(x), minutes, seconds);
+            }
+
 
             // display selected time of scrubber
             scrubberTextView.setText(hourMinSec);
@@ -258,9 +265,6 @@ public class MainActivity extends AppCompatActivity {
 
                         // pass progress to scrubberTextView
                         soundBoard.scrubberTextView(progress);
-
-                        // display to log the SeekBar value
-                        //Log.i("Scrubber Value", Integer.toString(progress));
 
                     }
 
