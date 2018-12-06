@@ -231,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                 // assign view to object
                 final SeekBar scrubberSeekBar = (SeekBar) findViewById(R.id.scrubberSeekBar);
 
+                final TextView scrubberTextView = (TextView) findViewById(R.id.scrubberTextView);
+
                 // set the max value of the SeekBar to the length of the media file
                 scrubberSeekBar.setMax(mediaPlayer.getDuration());
 
@@ -266,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
-                        // pause media file when clicked
+                        scrubberTextView.setVisibility(View.VISIBLE);
                         mediaPlayer.pause();
 
                     }
@@ -275,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
 
-                        // play track when unclicked
+                        scrubberTextView.setVisibility(View.INVISIBLE);
                         mediaPlayer.start();
 
                     }

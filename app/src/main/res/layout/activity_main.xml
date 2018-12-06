@@ -144,5 +144,6 @@
         android:alpha="0.7"
         android:layout_above="@+id/linearLayout2"
         android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_alignStart="@+id/linearLayout2" />
+        android:layout_alignStart="@+id/linearLayout2"
+        android:visibility="invisible" />
 </RelativeLayout>
