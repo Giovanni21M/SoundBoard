@@ -136,7 +136,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:id="@+id/scrubberTextView"
         android:background="@android:drawable/editbox_dropdown_dark_frame"
         android:text="23"
         android:textAlignment="gravity"

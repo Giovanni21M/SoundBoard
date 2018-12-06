@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         public void scrubberTextView(int x) {
 
             TextView scrubberTextView = (TextView) findViewById(R.id.scrubberTextView);
-
             SeekBar scrubberSeekBar = (SeekBar) findViewById(R.id.scrubberSeekBar);
 
             // w/ TimeUnit API convert milliseconds into hour:minute:second time format
@@ -160,7 +159,12 @@ public class MainActivity extends AppCompatActivity {
 
             // display selected time of scrubber
             scrubberTextView.setText(hourMinSec);
-
+            // get the distance from the sides
+            int distance = (scrubberSeekBar.getWidth() - scrubberSeekBar.getThumbOffset()) / 2;
+            // get the forward progress movement
+            int forward = scrubberSeekBar.getMax() - (scrubberSeekBar.getMax() - x);
+            // setX to move along with progress
+            scrubberTextView.setX(distance + (distance + forward) / (scrubberSeekBar.getThumbOffset() / 2));
 
         }
 
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                         soundBoard.scrubberTextView(progress);
 
                         // display to log the SeekBar value
-                        Log.i("Scrubber Value", Integer.toString(progress));
+                        //Log.i("Scrubber Value", Integer.toString(progress));
 
                     }
 
