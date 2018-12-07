@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     // create an instance of class
     SoundBoard soundBoard = new SoundBoard();
 
-    int progress2;
-
 
     // class containing all sound media controls
     class SoundBoard {
+
+        int progress2;
 
         private boolean muted = false;
 
