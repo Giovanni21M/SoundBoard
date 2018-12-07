@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     // create an instance of class
     SoundBoard soundBoard = new SoundBoard();
 
+    int progress2;
+
 
     // class containing all sound media controls
     class SoundBoard {
@@ -262,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // move to current time
                         mediaPlayer.seekTo(progress);
+                        progress2 = progress;
 
                         // pass progress to scrubberTextView
                         soundBoard.scrubberTextView(progress);
@@ -273,7 +276,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onStartTrackingTouch(SeekBar seekBar) {
 
                         scrubberTextView.setVisibility(View.VISIBLE);
-                        mediaPlayer.pause();
+
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                            mediaPlayer.seekTo(progress2);
+                        } else {
+                            mediaPlayer.seekTo(progress2);
+                        }
 
                     }
 
