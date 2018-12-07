@@ -78,7 +78,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="?attr/colorButtonNormal"
         android:id="@+id/volumeLayout"
         android:visibility="invisible"
         android:layout_below="@+id/linearLayout"
@@ -130,7 +130,10 @@
             android:layout_alignStart="@+id/linearLayout"
             android:layout_alignRight="@+id/linearLayout"
             android:layout_alignEnd="@+id/linearLayout"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:thumbTint="@android:color/black"
+            android:progressTint="?attr/colorControlHighlight" />
     </LinearLayout>
 
     <TextView
