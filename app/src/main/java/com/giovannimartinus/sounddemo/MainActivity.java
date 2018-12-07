@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             long minutes = TimeUnit.MILLISECONDS.toMinutes(x) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(x));
             long seconds = TimeUnit.MILLISECONDS.toSeconds(x) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(x));
 
+            // set the correct string to display
             if (TimeUnit.MILLISECONDS.toHours(x) == 0) {
                 hourMinSec = String.format("%02d:%02d", minutes, seconds);
             } else {
@@ -166,8 +167,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            // display selected time of scrubber
+            // display time in the TextView
             scrubberTextView.setText(hourMinSec);
+
             // get the distance from the sides
             int distance = (scrubberSeekBar.getWidth() - scrubberSeekBar.getThumbOffset()) / 2;
             // get the forward progress movement
